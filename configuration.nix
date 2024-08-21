@@ -50,7 +50,7 @@ in
   systemd.services.caddy.after = [ "assign-eip.service" ];
   systemd.services.caddy.requires = [ "assign-eip.service" ];
   # always restart caddy when assign-eip fails
-  systemd.services.caddy.onFailure = "restart";
+  systemd.services.caddy.serviceConfig.Restart = "always";
 
   systemd.services.assign-eip = {
     description = "Assign Elastic IP to instance";
