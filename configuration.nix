@@ -32,6 +32,7 @@ in
       "flakery.dev" = {
         domain = "www.flakery.dev";
         dnsProvider = "route53"; # Specify Route53 as the DNS provider
+        environmentFile = "/aws.env";
         # Provide the AWS credentials for Route53
         awsAccessKeyId = (lib.removeSuffix "\n" (builtins.readFile /aws-access-key-id));
         awsSecretAccessKey = (lib.removeSuffix "\n" (builtins.readFile /aws-secret-access-key));
