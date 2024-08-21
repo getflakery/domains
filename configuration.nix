@@ -5,7 +5,7 @@ let
     name = "assign-eip";
     runtimeInputs = [ pkgs.awscli2 pkgs.curl ];
     text = ''
-      ELASTIC_IP="52.33.24.220"
+      ELASTIC_IP="35.82.204.5"
       INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
       ALLOCATION_ID=$(aws ec2 describe-addresses --public-ips $ELASTIC_IP --query 'Addresses[0].AllocationId' --output text)
       ASSOCIATION_ID=$(aws ec2 describe-addresses --public-ips $ELASTIC_IP --query 'Addresses[0].AssociationId' --output text)
