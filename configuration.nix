@@ -49,8 +49,8 @@ in
   };
 
   # caddy depends on assign-eip
-  systemd.services.caddy.after = [ "assign-eip" ];
-  systemd.services.caddy.requires = [ "assign-eip" ];
+  systemd.services.caddy.after = [ "assign-eip.service" ];
+  systemd.services.caddy.requires = [ "assign-eip.service" ];
 
   systemd.services.assign-eip = {
     description = "Assign Elastic IP to instance";
