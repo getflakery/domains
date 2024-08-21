@@ -1,11 +1,11 @@
-{ config, pkgs, lib,  ... }:
+{ config, pkgs, lib, ... }:
 
 let
   assignEIP = pkgs.writeShellApplication {
     name = "assign-eip";
     runtimeInputs = [ pkgs.awscli2 pkgs.curl ];
     text = ''
-      ELASTIC_IP="54.186.174.84"
+      ELASTIC_IP="52.33.24.220"
       INSTANCE_ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
       ALLOCATION_ID=$(aws ec2 describe-addresses --public-ips $ELASTIC_IP --query 'Addresses[0].AllocationId' --output text)
       ASSOCIATION_ID=$(aws ec2 describe-addresses --public-ips $ELASTIC_IP --query 'Addresses[0].AssociationId' --output text)
@@ -48,7 +48,11 @@ in
 
   };
 
-    systemd.services.assign-eip = {
+  # caddy depends on assign-eip
+  systemd.services.caddy.after = [ "assign-eip" ];
+  systemd.services.caddy.requires = [ "assign-eip" ];
+
+  systemd.services.assign-eip = {
     description = "Assign Elastic IP to instance";
     path = with pkgs; [ awscli2 curl ];
     serviceConfig.Type = "oneshot";
