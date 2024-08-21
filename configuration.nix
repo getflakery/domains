@@ -25,17 +25,7 @@ in
 
 {
   system.stateVersion = "23.05";
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "rwendt1337@gmail.com";
-    certs = {
-      "flakery.dev" = {
-        domain = "www.flakery.dev";
-        dnsProvider = "route53"; # Specify Route53 as the DNS provider
-        environmentFile = "/aws.env";
-      };
-    };
-  };
+
 
   services.caddy = {
     enable = true;
